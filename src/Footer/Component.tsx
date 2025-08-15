@@ -9,10 +9,10 @@ export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
 
   return (
-    <footer className=" bg-black  text-white py-8">
+    <footer className=" bg-black  text-white py-12">
       <div className="container mx-auto flex flex-col gap-8">
-        <div className="flex items-start justify-between w-full gap-10">
-          <div className="flex flex-col gap-6 w-[40%] items-start">
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-10">
+          <div className="flex flex-col gap-6 w-full md:w-[40%] items-center md:items-start">
             <Link href="/">
               <Image
                 src="/footerLogo.svg"
@@ -22,14 +22,14 @@ export async function Footer() {
                 className="!w-auto !h-[82.0002212524414px]"
               />
             </Link>
-            <p className="text-[14px] text-[#A3A3A3]  font-light w-[70%]">
+            <p className="text-[14px] text-[#A3A3A3] text-center md:text-left font-light w-[70%]">
               Peptide products are not FDA approved. The decision to use them should only be made by
               a Medical Professional and their patient. Sublime Vitality does not give medical
               advice or make medical claims.
             </p>
           </div>
 
-          <div className="flex flex-col gap-2 w-[20%] items-start">
+          <div className="flex flex-col gap-2 w-full md:w-[20%] items-center md:items-start">
             <h3 className="text-[16px] my-4">Quick Links</h3>
             <Link className="text-[14px] text-[#A3A3A3] hover:text-white hover:underline" href="/">
               Home
@@ -48,7 +48,7 @@ export async function Footer() {
             </Link>
           </div>
 
-          <div className="flex flex-col gap-2 w-[20%] items-start">
+          <div className="flex flex-col gap-2 w-full md:w-[20%] items-center md:items-start">
             <h3 className="text-[16px] my-4">Legal</h3>
             <Link
               className="text-[14px] text-[#A3A3A3] hover:text-white hover:underline"
@@ -70,7 +70,7 @@ export async function Footer() {
             </Link>
           </div>
 
-          <div className="flex flex-col gap-2 w-[20%] items-start">
+          <div className="flex flex-col gap-2 w-full md:w-[20%] items-center md:items-start">
             <h3 className="text-[16px] my-4">Follow Us</h3>
             <Link className="text-[14px] text-[#A3A3A3]" href="/">
               <Image

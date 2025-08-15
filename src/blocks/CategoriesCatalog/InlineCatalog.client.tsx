@@ -28,7 +28,7 @@ export function InlineCatalog({ categories }: { categories: Category[] }) {
   return (
     <>
       {/* Categories Row */}
-      <div className="flex items-center gap-4 justify-between">
+      <div className="flex flex-wrap items-start gap-4 justify-start md:justify-between">
         {categories.map((cat) => {
           const img = cat.image?.url ?? null
           const isActive = cat.id === activeId
@@ -79,7 +79,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
   return (
     <div className="mt-12 ">
       <div className="flex flex-col lg:flex-row gap-12 justify-between">
-        <div className="w-[50%] relative">
+        <div className="w-full lg:w-[50%] relative">
           {image && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -92,7 +92,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
             <CustomButton label="View Catalog" href={`/catalog/${catSlug}`} />
           </div>
         </div>
-        <div className="w-[40%] flex flex-col gap-4">
+        <div className="w-full lg:w-[40%] flex flex-col gap-4">
           {Array.isArray(catalog?.list) && catalog!.list!.length > 0 && (
             <ul className="flex flex-col gap-8">
               {catalog!.list!.map((item, idx) => (

@@ -11,9 +11,9 @@ export const ImageText: React.FC<ImageTextBlock> = ({
   return (
     <section className="container mx-auto my-32">
       <div
-        className={` flex items-center h-full gap-16 ${reverse ? 'flex-row-reverse' : 'flex-row'}`}
+        className={` flex items-center h-full gap-8 lg:gap-16 ${reverse ? ' flex-col lg:flex-row-reverse' : ' flex-col lg:flex-row'}`}
       >
-        <div className="relative w-[50%] h-[420px] rounded-4xl">
+        <div className="relative w-full lg:w-[50%] h-[420px] rounded-4xl">
           {backgroundImage && typeof backgroundImage !== 'string' && (
             <Image
               src={backgroundImage.url || ''}
@@ -25,18 +25,18 @@ export const ImageText: React.FC<ImageTextBlock> = ({
           )}
         </div>
 
-        <div className="w-[50%] flex flex-col gap-8">
-          <h2 className="text-4xl">{title}</h2>
+        <div className="w-full lg:w-[50%] flex flex-col gap-4 lg:gap-8">
+          <h2 className="text-2xl md:text-4xl">{title}</h2>
 
           <div className="flex flex-col gap-4">
             {Array.isArray(description) ? (
               description.map((desc, i) => (
-                <p key={i} className="text-lg ">
+                <p key={i} className="text-sm md:text-base lg:text-lg ">
                   {desc.paragraph}
                 </p>
               ))
             ) : (
-              <p className="text-lg ">{description}</p>
+              <p className="text-sm md:text-base lg:text-lg ">{description}</p>
             )}
           </div>
         </div>

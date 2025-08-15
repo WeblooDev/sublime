@@ -27,7 +27,9 @@ export const InfoMapSection: React.FC<Props> = (props) => {
             return (
               <div key={i} className="flex flex-col gap-4 ">
                 {group?.mapTitle && (
-                  <h3 className="text-3xl text-[#887B4D] mb-4">{group.mapTitle}</h3>
+                  <h3 className="text-2xl md:text-3xl text-[#887B4D] mb-0 md:mb-4">
+                    {group.mapTitle}
+                  </h3>
                 )}
 
                 {items.length > 0 ? (

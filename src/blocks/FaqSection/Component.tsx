@@ -10,21 +10,18 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, 
 
   return (
     <section className="py-16 px-4 max-w-7xl mx-auto">
-      <div className="grid lg:grid-cols-2 gap-12 items-stretch h-full">
+      <div className="flex flex-col-reverse md:flex-row gap-12 items-stretch h-full">
         {/* Left side - Image (from Payload media) */}
-        <div className="relative h-full min-h-[320px]">
-          {image ? (
-            <Media
-              resource={image}
-              // No fill -> no absolute positioning
-              imgClassName="w-full h-full object-cover rounded-lg shadow-lg"
-            />
-          ) : (
-            <div className="w-full h-full min-h-[320px] rounded-lg bg-muted/30" />
-          )}
+        <div className="relative hidden md:block h-auto w-full md:w-[50%]">
+          <Media
+            resource={image}
+            fill
+            priority
+            imgClassName="w-full h-full object-cover rounded-lg shadow-lg"
+          />
         </div>
 
-        <div className="flex flex-col gap-8 justify-center">
+        <div className="p-4 lg:p-0 flex flex-col gap-8 justify-center w-full md:w-[50%]">
           <div>
             <h2 className="text-4xl  mb-2">{title}</h2>
           </div>

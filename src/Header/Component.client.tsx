@@ -3,9 +3,7 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
-
 import type { Header } from '@/payload-types'
-
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import Image from 'next/image'
@@ -31,8 +29,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
-  // hide-on-scroll
+  // hide-on-scroll + top detection
   const [isVisible, setIsVisible] = useState(true)
+  const [isTop, setIsTop] = useState(true)
   const lastY = useRef(0)
   const ticking = useRef(false)
 
@@ -41,6 +40,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       const y = window.scrollY
       if (!ticking.current) {
         window.requestAnimationFrame(() => {
+          setIsTop(y < 10) // check if at top
           if (y < lastY.current || y < 10) {
             setIsVisible(true)
           } else {
@@ -61,7 +61,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     <header
       className={[
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
-        isHome ? 'bg-transparent' : 'bg-[#FDFBE9]',
+        isHome ? (isTop ? 'bg-transparent' : 'bg-black') : 'bg-black',
         isVisible ? 'translate-y-0' : '-translate-y-full',
       ].join(' ')}
       {...(theme ? { 'data-theme': theme } : {})}
@@ -77,11 +77,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             />
           </Link>
 
-          <div className={`flex gap-8 ${isHome ? 'text-white' : 'text-black'}`}>
-            <Link className="text-base hover:underline" href="/catalog/all">
+          <div className={`flex gap-3 md:gap-8 ${isHome && isTop ? 'text-white' : 'text-white'}`}>
+            <Link className="text-sm md:text-base hover:underline" href="/catalog/all">
               Product Catalog
             </Link>
-            <Link className="text-base hover:underline" href="/contact">
+            <Link className="text-sm md:text-base hover:underline" href="/contact">
               Contact Us
             </Link>
           </div>

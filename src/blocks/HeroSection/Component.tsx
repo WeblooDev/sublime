@@ -19,13 +19,13 @@ export const HeroSection: React.FC<HeroSectionBlock> = ({
             <Media fill priority resource={backgroundImage} imgClassName="w-full h-full  " />
           )}
 
-          <div className="h-full w-[60%] relative p-20  flex flex-col items-start gap-8 justify-end ">
+          <div className="h-full w-full xl:w-[60%] relative px-4 py-8 md:p-10 lg:p-20  flex flex-col items-start gap-8 justify-end ">
             <div>
-              <h1 className="text-4xl md:text-6xl text-white ">{title}</h1>
-              <h1 className="text-4xl md:text-6xl text-white ">{title2}</h1>
+              <h1 className="text-2xl lg:text-4xl text-white ">{title}</h1>
+              <h1 className="text-2xl lg:text-4xl text-white ">{title2}</h1>
             </div>
 
-            <p className="text-lg md:text-xl font-light text-white w-[60%] text-start">
+            <p className="text-base md:text-lg lg:text-xl font-light text-white w-full lg:w-[60%] text-start">
               {description}
             </p>
             <CustomButton label="Explore Peptides" href="/produits" />

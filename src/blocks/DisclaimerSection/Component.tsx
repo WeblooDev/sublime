@@ -14,9 +14,9 @@ export const DisclaimerSection: React.FC<Props> = (props) => {
 
       <h2 className="text-3xl md:text-5xl text-center">{title} </h2>
       <div className="flex flex-col gap-4 text-robot-bold">
-        <p className="text-lg text-center ">{subtitle}</p>
-        <p className="text-lg text-center">{description}</p>
-        <p className="text-lg text-center">{smallText}</p>
+        <p className="text-base md:text-lg text-center ">{subtitle}</p>
+        <p className="text-base md:text-lg text-center">{description}</p>
+        <p className="text-base md:text-lg text-center">{smallText}</p>
       </div>
     </section>
   )

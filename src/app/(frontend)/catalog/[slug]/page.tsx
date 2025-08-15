@@ -179,7 +179,7 @@ export default async function CatalogByCategoryPage(props: {
       )}
 
       {/* Categories bar (with All first) */}
-      <div className="container p-0 flex items-center gap-6 mb-10">
+      <div className="container p-4 md:p-0 flex flex-wrap justify-center  md:justify-between items-center gap-6 mb-10">
         {categories.map((c) => {
           const isActive = c.slug === (activeCategory as any).slug
           const img = (c as any)?.image?.url ?? null
@@ -233,7 +233,7 @@ export default async function CatalogByCategoryPage(props: {
           return (
             <div
               key={p.id}
-              className={`flex flex-col lg:flex-row ${isReverse ? 'lg:flex-row-reverse' : ''} items-center justify-center w-full p-10`}
+              className={`flex flex-col gap-6 lg:gap-0 lg:flex-row ${isReverse ? 'lg:flex-row-reverse' : ''} items-center justify-center w-full p-4 md:p-10`}
             >
               {img && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -242,12 +242,12 @@ export default async function CatalogByCategoryPage(props: {
               )}
 
               <div
-                className={`p-8 flex flex-col gap-6 bg-black text-white w-full lg:w-[50%]
+                className={`p-4 lg:p-8 flex flex-col gap-6 bg-black text-white w-auto lg:w-[50%]
                       rounded-2xl lg:rounded-none
                       ${isReverse ? 'lg:rounded-l-2xl' : 'lg:rounded-r-2xl'}`}
               >
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-6xl">{p.title}</h3>
+                  <h3 className=" text-2xl sm:text-3xl md:text-4xl lg:text-6xl">{p.title}</h3>
                   {p.subtitle && <p className="text-sm">{p.subtitle}</p>}
                 </div>
                 {p.description && <p className="text-sm">{p.description}</p>}

@@ -13,10 +13,10 @@ export default function TestimonialsSection({ title, testimonials }: Testimonial
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl text-white">{title}</h2>
+          <h2 className="text-2xl md:text-4xl text-white">{title}</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials?.map((t, i) => (
             <Card key={i} className="p-6 bg-white text-black rounded-[6px]">
               <div className="flex items-center gap-4 mb-4">
@@ -31,7 +31,7 @@ export default function TestimonialsSection({ title, testimonials }: Testimonial
                 </div>
               </div>
 
-              <p className="text-base text-[#404040]">{t.testimonial}</p>
+              <p className="text-sm md:text-base text-[#404040]">{t.testimonial}</p>
             </Card>
           ))}
         </div>

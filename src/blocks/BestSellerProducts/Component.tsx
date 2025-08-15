@@ -56,7 +56,7 @@ export async function BestSellerProducts(props: BestSellerProductsBlock) {
 
   return (
     <section className="container my-24 flex flex-col gap-8 items-center">
-      {title && <h2 className="text-4xl  mb-6">{title}</h2>}
+      {title && <h2 className="text-2xl md:text-4xl  mb-6">{title}</h2>}
 
       {layout === 'rows' ? (
         <div className="flex flex-col gap-10">
@@ -84,15 +84,15 @@ export async function BestSellerProducts(props: BestSellerProductsBlock) {
                               ${isReverse ? 'lg:rounded-l-2xl' : 'lg:rounded-r-2xl'}`}
                 >
                   <h3 className="text-2xl">{p.title}</h3>
-                  {p.subtitle && <p className="text-sm opacity-80">{p.subtitle}</p>}
-                  {p.description && <p className="text-sm opacity-90">{p.description}</p>}
+                  {p.subtitle && <p className="text-sm ">{p.subtitle}</p>}
+                  {p.description && <p className="text-sm ">{p.description}</p>}
                 </div>
               </div>
             )
           })}
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
           {products.map((p) => {
             const img = (p as any)?.mainImage?.url ?? null
             return (
@@ -107,7 +107,7 @@ export async function BestSellerProducts(props: BestSellerProductsBlock) {
                   className="w-full h-[305px] object-cover rounded-[6px]"
                 />
                 <div className=" flex flex-col gap-4 py-4">
-                  <h3 className="text-2xl ">{p.title}</h3>
+                  <h3 className="text-xl md:text-2xl ">{p.title}</h3>
                   {p.subtitle && <p className="text-base ">{p.subtitle}</p>}
                 </div>
               </div>

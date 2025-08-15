@@ -31,7 +31,7 @@ export const ImageSection: React.FC<ImageSectionBlock> = ({
               height={100}
               className="!w-auto !h-auto"
             />
-            <p className="text-lg  text-white max-w-3xl text-center">{description}</p>
+            <p className="text-base md:text-lg  text-white max-w-3xl text-center">{description}</p>
             <CustomButton label="Visit Website" href="/produits" />
           </div>
         </div>
