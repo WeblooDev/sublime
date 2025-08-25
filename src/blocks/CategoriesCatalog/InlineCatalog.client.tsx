@@ -43,7 +43,7 @@ export function InlineCatalog({ categories }: { categories: Category[] }) {
             >
               {/* Background highlight animation */}
               <div
-                className={`absolute bottom-0 left-0 w-[190px] bg-[#F5EC9B] z-10 transition-all duration-500 ease-in-out ${
+                className={`absolute bottom-0 left-0  w-[140px] lg:w-[190px] bg-[#F5EC9B] z-10 transition-all duration-500 ease-in-out ${
                   isActive ? 'h-full' : 'h-0'
                 }`}
               />
@@ -53,12 +53,14 @@ export function InlineCatalog({ categories }: { categories: Category[] }) {
                 <img
                   src={img}
                   alt={cat.title ?? ''}
-                  className="h-[110px] w-[190px] object-cover transition-transform duration-300 group-hover:scale-105 relative z-0"
+                  className="h-[110px] w-[140px] lg:w-[190px] object-cover transition-transform duration-300 group-hover:scale-105 relative z-0"
                 />
               )}
 
               <div className="p-1 absolute bottom-1 left-2  z-20">
-                <h2 className={`text-lg ${isActive ? 'text-black' : 'text-white'}`}>{cat.title}</h2>
+                <h2 className={`text-sm lg:text-lg ${isActive ? 'text-black' : 'text-white'}`}>
+                  {cat.title}
+                </h2>
               </div>
             </button>
           )

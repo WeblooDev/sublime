@@ -5,6 +5,7 @@ import type { GlobalConfig } from 'payload'
 import { SubscribeSectionBlock } from '@/blocks/SubscribeSection/config'
 import { CatalogSectionBlock } from '@/blocks/CatalogSection/config'
 import { BestSellerProductsBlock } from '@/blocks/BestSellerProducts/config'
+import { FormBlock } from '@/blocks/Form/config'
 
 export const CatalogAll: GlobalConfig = {
   slug: 'catalogAll',
@@ -27,7 +28,7 @@ export const CatalogAll: GlobalConfig = {
           name: 'bottomLayout',
           label: 'Bottom Blocks',
           type: 'blocks',
-          blocks: [SubscribeSectionBlock, BestSellerProductsBlock, CatalogSectionBlock],
+          blocks: [SubscribeSectionBlock, BestSellerProductsBlock, CatalogSectionBlock, FormBlock],
           admin: { initCollapsed: true },
         },
       ],

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Media } from '@/components/Media'
 import type { FaqSectionBlock } from '@/payload-types'
+import { CustomButton } from '@/components/CustomButton'
 
 export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, faqs }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -26,7 +27,7 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, 
             <h2 className="text-4xl  mb-2">{title}</h2>
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
             {faqs?.map((faq, index) => (
               <div
                 key={index}
@@ -61,6 +62,10 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, 
             )}
           </div>
         </div>
+      </div>
+
+      <div className="flex justify-center mt-20">
+        <CustomButton label="View All" href="/contact" />
       </div>
     </section>
   )

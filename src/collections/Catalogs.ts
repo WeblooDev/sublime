@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
 import { SubscribeSectionBlock } from '@/blocks/SubscribeSection/config'
 import { CatalogSectionBlock } from '@/blocks/CatalogSection/config'
+import { FormBlock } from '@/blocks/Form/config'
 
 export const Catalogs: CollectionConfig = {
   slug: 'catalogs',
@@ -38,7 +39,7 @@ export const Catalogs: CollectionConfig = {
           name: 'bottomLayout',
           label: 'Bottom Blocks',
           type: 'blocks',
-          blocks: [SubscribeSectionBlock /*, ...other blocks */],
+          blocks: [SubscribeSectionBlock, FormBlock /*, ...other blocks */],
           admin: { initCollapsed: true },
         },
       ],
