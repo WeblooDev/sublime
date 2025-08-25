@@ -5,7 +5,7 @@ import type { FourItemsBlock } from '@/payload-types'
 export const FourItems: React.FC<FourItemsBlock> = ({ items }) => {
   return (
     <section
-      className="w-full bg-cover bg-center my-6"
+      className="w-full bg-cover bg-center my-20"
       style={{ backgroundImage: "url('/section.png')" }}
     >
       <div className="container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 p-8">

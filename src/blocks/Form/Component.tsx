@@ -10,6 +10,9 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export type FormBlockType = {
   blockName?: string
@@ -45,6 +48,7 @@ export const FormBlock: React.FC<
   const [hasSubmitted, setHasSubmitted] = useState<boolean>()
   const [error, setError] = useState<{ message: string; status?: string } | undefined>()
   const router = useRouter()
+  const pathname = usePathname()
 
   const onSubmit = useCallback(
     (data: FormFieldBlock[]) => {
@@ -114,11 +118,18 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div className="container mt-[100px] flex flex-col md:flex-row-reverse items-stretch h-full gap-10 my-20">
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
+      <div id="forms" className="flex flex-col gap-10 w-full md:w-[50%]">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-4xl md:text-4xl">Questions? Ready to order?</h1>
+          <p className="text-base">
+            Submit your information below and a personal rep will establish your account or answer
+            any questions you may have
+          </p>
+        </div>
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
@@ -158,6 +169,59 @@ export const FormBlock: React.FC<
           )}
         </FormProvider>
       </div>
+
+      {pathname === '/contact' ? (
+        <div className="w-full md:w-[50%] !rounded-2xl bg-black text-white p-12 flex flex-col gap-20 justify-start relative overflow-hidden">
+          {/* Text Block 1 */}
+          <div>
+            <h2 className="text-3xl  mb-2">Contact Information</h2>
+            <p className="text-base text-[#C9C9C9]">Say something to start a live chat!</p>
+          </div>
+
+          {/* Icon + Label Blocks */}
+          <div className="flex flex-col gap-8 mt-4">
+            <div className="flex items-center gap-5">
+              <Image src="/phone.svg" alt="phone" width={24} height={24} />
+              <Link href="tel:+19495664084" className="font-light hover:underline">
+                +949 566 4084
+              </Link>
+            </div>
+            <div className="flex items-center gap-5">
+              <Image src="/email.svg" alt="email" width={24} height={24} />
+              <Link href="mailto:info@sublimevital.com" className="font-light hover:underline">
+                info@sublimevital.com
+              </Link>
+            </div>
+            <div className="flex items-center gap-5">
+              <Image src="/loca.svg" alt="location" width={24} height={24} />
+              <Link
+                href="https://www.google.com/maps/place/Yorba+Linda,+CA"
+                className="font-light hover:underline"
+              >
+                Yorba Linda, CA
+              </Link>
+            </div>
+          </div>
+
+          <Image
+            src="/deco.png"
+            alt="chat"
+            width={1000}
+            height={1000}
+            className="w-auto h-auto absolute bottom-0 right-0"
+          />
+        </div>
+      ) : (
+        <div className="w-full md:w-[50%] !rounded-2xl">
+          <Image
+            src="/form.png"
+            alt="form"
+            width={600}
+            height={700}
+            className="h-[400px] md:h-[580px] w-full object-cover !rounded-[6px]"
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -19,6 +19,8 @@ import { getServerSideURL } from './utilities/getURL'
 import { Catalogs } from './collections/Catalogs'
 import { Products } from './collections/product'
 import { CatalogAll } from './globals/CatalogAll'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import nodemailer from 'nodemailer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -93,4 +95,15 @@ export default buildConfig({
     },
     tasks: [],
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: 'nabileffina@webloo.com',
+    defaultFromName: 'Sublime',
+    transport: nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    }),
+  }),
 })

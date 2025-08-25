@@ -13,11 +13,12 @@ export const Textarea: React.FC<
     errors: Partial<FieldErrorsImpl>
     register: UseFormRegister<FieldValues>
     rows?: number
+    placeholder?: string
   }
-> = ({ name, defaultValue, errors, label, register, required, rows = 3, width }) => {
+> = ({ name, defaultValue, errors, label, placeholder, register, required, rows = 3, width }) => {
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
+      {/* <Label htmlFor={name}>
         {label}
 
         {required && (
@@ -25,12 +26,13 @@ export const Textarea: React.FC<
             * <span className="sr-only">(required)</span>
           </span>
         )}
-      </Label>
+      </Label> */}
 
       <TextAreaComponent
         defaultValue={defaultValue}
         id={name}
         rows={rows}
+        placeholder={placeholder || label}
         {...register(name, { required: required })}
       />
 
