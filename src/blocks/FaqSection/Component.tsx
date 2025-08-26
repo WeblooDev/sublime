@@ -64,6 +64,7 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, 
         </div>
       </div>
 
+
       <div className="flex justify-center mt-20">
         <CustomButton label="View All" href="/contact" />
       </div>
