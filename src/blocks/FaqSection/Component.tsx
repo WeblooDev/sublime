@@ -6,7 +6,7 @@ import { Media } from '@/components/Media'
 import type { FaqSectionBlock } from '@/payload-types'
 import { CustomButton } from '@/components/CustomButton'
 
-export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, faqs }) => {
+export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
@@ -63,7 +63,6 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, subtitle, image, 
           </div>
         </div>
       </div>
-
 
       <div className="flex justify-center mt-20">
         <CustomButton label="View All" href="/contact" />

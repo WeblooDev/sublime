@@ -2,7 +2,6 @@ import React from 'react'
 import { Media } from '@/components/Media'
 import { CustomButton } from '@/components/CustomButton'
 import type { HeroSectionBlock } from '@/payload-types'
-import Image from 'next/image'
 
 export const HeroSection: React.FC<HeroSectionBlock> = ({
   backgroundImage,
