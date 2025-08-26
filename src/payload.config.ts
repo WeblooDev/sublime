@@ -21,6 +21,7 @@ import { Products } from './collections/product'
 import { CatalogAll } from './globals/CatalogAll'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import nodemailer from 'nodemailer'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -74,6 +75,17 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+
+    vercelBlobStorage({
+      access: 'public',
+      enabled: true,
+      // Specify which collections should use Vercel Blob
+      collections: {
+        media: true,
+      },
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
