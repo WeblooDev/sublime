@@ -32,7 +32,7 @@ export const ImageSection: React.FC<ImageSectionBlock> = ({
               className="!w-auto !h-auto"
             />
             <p className="text-base md:text-lg  text-white max-w-3xl text-center">{description}</p>
-            <CustomButton label="Visit Website" href="/produits" />
+            <CustomButton label="Visit Website" href="https://sublimemd.com/" />
           </div>
         </div>
       </div>

@@ -179,7 +179,7 @@ export default async function CatalogByCategoryPage(props: {
       )}
 
       {/* Categories bar (with All first) */}
-      <div className="container p-4 md:p-0 flex flex-wrap justify-center  md:justify-between items-center gap-6 mb-10">
+      <div className="container p-4 md:p-0 flex flex-wrap justify-center  md:justify-between items-center  mb-10">
         {categories.map((c) => {
           const isActive = c.slug === (activeCategory as any).slug
           const img = (c as any)?.image?.url ?? null

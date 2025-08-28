@@ -64,9 +64,9 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) =>
         </div>
       </div>
 
-      <div className="flex justify-center mt-20">
+      {/* <div className="flex justify-center mt-20">
         <CustomButton label="View All" href="/contact" />
-      </div>
+      </div> */}
     </section>
   )
 }
