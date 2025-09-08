@@ -28,7 +28,7 @@ export function InlineCatalog({ categories }: { categories: Category[] }) {
   return (
     <>
       {/* Categories Row */}
-      <div className="flex flex-wrap items-start gap-4 justify-start md:justify-between">
+      <div className="flex flex-wrap items-center gap-4  justify-center md:justify-between">
         {categories.map((cat) => {
           const img = cat.image?.url ?? null
           const isActive = cat.id === activeId
