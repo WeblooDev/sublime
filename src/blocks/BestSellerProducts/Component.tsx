@@ -55,7 +55,7 @@ export async function BestSellerProducts(props: BestSellerProductsBlock) {
         : 'justify-center'
 
   return (
-    <section className="container my-24 flex flex-col gap-8 items-center">
+    <section className="container my-12 lg:my-24 flex flex-col gap-8 items-center">
       {title && <h2 className="text-2xl md:text-4xl  mb-6">{title}</h2>}
 
       {layout === 'rows' ? (

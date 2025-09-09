@@ -9,7 +9,10 @@ export const BannerSection: React.FC<BannerSectionBlock> = ({ backgroundImage })
     <div>
       {/* Background image */}
       <div className="mt-[100px]">
-        <Media resource={backgroundImage} imgClassName="w-full h-full  " />
+        <Media
+          resource={backgroundImage}
+          imgClassName="w-full h-full "
+        />
       </div>
     </div>
   )

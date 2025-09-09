@@ -87,10 +87,10 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
             <img
               src={image}
               alt={catalog?.title || category.title || ''}
-              className="w-full h-full object-cover rounded-xl"
+              className="w-full h-full object-cover rounded-xl min-h-[250px]"
             />
           )}
-          <div className="pt-4 absolute bottom-10 left-10">
+          <div className="pt-4 absolute bottom-6 lg:bottom-10  left-6 lg:left-10">
             <CustomButton label="View Catalog" href={`/catalog/${catSlug}`} />
           </div>
         </div>
@@ -109,7 +109,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
                     />
                     {item.title}
                   </h2>
-                  <p className="ml-[32px] text-base w-[90%]">{item.description}</p>
+                  <p className="ml-[32px] text-sm md:text-base w-[90%]">{item.description}</p>
                 </li>
               ))}
             </ul>

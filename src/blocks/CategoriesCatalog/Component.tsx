@@ -57,8 +57,8 @@ export default async function CategoriesCatalogBlock(props: CategoriesCatalogBlo
     <section className=" bg-black text-white">
       <div className="container py-20">
         <div className="flex flex-col lg:flex-row gap-4 justify-between items-center mb-8 text-center md:text-start">
-          {props.title && <h2 className="text-3xl md:text-4xl ">{props.title}</h2>}
-          <p className="text-base w-[80%] lg:w-[40%]">
+          {props.title && <h2 className="text-2xl md:text-4xl">{props.title}</h2>}
+          <p className="text-sm md:text-base lg:text-lg w-[80%] lg:w-[40%]">
             Explore our curated range of medical-grade peptides, each designed to target specific
             health goals.
           </p>

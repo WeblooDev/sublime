@@ -152,7 +152,7 @@ export default async function CatalogByCategoryPage(props: {
       )}
 
       {/* Categories bar (with All first) */}
-      <div className="container p-4 md:p-0 flex flex-wrap justify-center md:justify-between items-center mb-10">
+      <div className="container p-4 md:p-0  flex flex-wrap justify-center md:justify-between items-center mb-10 gap-2 md:gap-4">
         {categories.map((c) => {
           const isActive = c.slug === (activeCategory as any).slug
           const img = (c as any)?.image?.url ?? null
@@ -161,7 +161,7 @@ export default async function CatalogByCategoryPage(props: {
             <Link
               key={c.id}
               href={`/catalog/${c.slug}`}
-              className={`group relative rounded-[6px] overflow-hidden border text-left transition block focus:outline-none h-[110px] ${
+              className={`group relative rounded-[6px] overflow-hidden border text-left transition block focus:outline-none h-[110px] max-w-[150px] md:max-w-[auto] ${
                 isActive ? 'border-[#E1D083]' : 'border-[#E1D08380] hover:shadow'
               }`}
               aria-current={isActive ? 'page' : undefined}

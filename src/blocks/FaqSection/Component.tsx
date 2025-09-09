@@ -10,7 +10,7 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) =>
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
+    <section className="py-4 md:py-16 px-4 max-w-7xl mx-auto">
       <div className="flex flex-col-reverse md:flex-row gap-12 ">
         {/* Left side - Image (from Payload media) */}
         <div className="relative hidden md:block h-auto w-full md:w-[50%]">

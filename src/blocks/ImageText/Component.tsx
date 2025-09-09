@@ -9,7 +9,7 @@ export const ImageText: React.FC<ImageTextBlock> = ({
   reverse,
 }) => {
   return (
-    <section className="container mx-auto my-32">
+    <section className="container mx-auto my-12 md:my-20 lg:my-32">
       <div
         className={` flex items-center h-full gap-8 lg:gap-16 ${reverse ? ' flex-col lg:flex-row-reverse' : ' flex-col lg:flex-row'}`}
       >

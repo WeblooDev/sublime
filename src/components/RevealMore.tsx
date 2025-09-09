@@ -35,7 +35,7 @@ export default function RevealMore({ products }: { products: Product[] }) {
             )}
 
             <div
-              className={`p-4 lg:p-8 flex flex-col gap-6 bg-black text-white w-auto lg:w-[50%]
+              className={`p-4 lg:p-8 flex flex-col gap-6 bg-black text-white w-[100%] lg:w-[50%]
                       rounded-2xl lg:rounded-none
                       ${isReverse ? 'lg:rounded-l-2xl' : 'lg:rounded-r-2xl'}`}
             >
