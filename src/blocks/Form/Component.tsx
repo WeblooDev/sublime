@@ -118,7 +118,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container mt-[100px] flex flex-col md:flex-row-reverse items-stretch h-full gap-10 my-20">
+    <div className="container  mt-[40px] md:mt-[70px] lg:mt-[100px] flex flex-col md:flex-row-reverse items-stretch h-full gap-10 my-20">
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}

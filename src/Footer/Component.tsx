@@ -72,7 +72,11 @@ export async function Footer() {
 
           <div className="flex flex-col gap-2 w-full md:w-[20%] items-center md:items-start">
             <h3 className="text-[16px] my-4">Follow Us</h3>
-            <Link className="text-[14px] text-[#A3A3A3]" href="/">
+            <Link
+              className="text-[14px] text-[#A3A3A3]"
+              href="https://www.instagram.com/sublimemd/?igsh=NTc4MTIwNjQ2YQ%3D%3D#"
+              target="_blank"
+            >
               <Image
                 src="/ig.svg"
                 alt="Instagram"

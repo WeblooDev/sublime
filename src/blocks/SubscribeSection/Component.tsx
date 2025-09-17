@@ -1,5 +1,4 @@
 import React from 'react'
-import { Media } from '@/components/Media'
 import type { SubscribeSectionBlock } from '@/payload-types'
 
 export const SubscribeSection: React.FC<SubscribeSectionBlock> = ({ title, description }) => {

@@ -4,6 +4,7 @@ import config from '@/payload.config'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import RevealMore from '@/components/RevealMore'
 
 // ---- Types
 type Catalog = {
@@ -42,10 +43,11 @@ const ALL_VIRTUAL: Category = {
   catalog: undefined,
 }
 
-async function getData(slug: string, page: number) {
+// ----- Data fetching (server) -----
+async function getData(slug: string) {
   const payload = await getPayload({ config })
 
-  // 1) All categories for top bar
+  // 1) All categories for top bar (prepend virtual "All" later)
   const allCategoriesRes = await payload.find({
     collection: 'categories',
     depth: 1,
@@ -56,7 +58,6 @@ async function getData(slug: string, page: number) {
 
   // 2) Active category (virtual if slug === 'all')
   let activeCategory: Category | null = null
-
   if (slug === 'all') {
     activeCategory = ALL_VIRTUAL
   } else {
@@ -71,50 +72,30 @@ async function getData(slug: string, page: number) {
   }
 
   if (!activeCategory) {
-    return { categories: [], activeCategory: null, products: [], pagination: null as any }
+    return { categories: [], activeCategory: null, products: [] as Product[] }
   }
 
-  // 3) Products (all or filtered by category), with pagination (limit=4)
-  const limit = 4
+  // 3) Products (all or filtered by category) — NO pagination
   const productsRes =
     slug === 'all'
       ? await payload.find({
           collection: 'products',
           depth: 1,
-          pagination: true,
-          limit,
-          page,
+          pagination: false, // get everything
           sort: 'title',
         })
       : await payload.find({
           collection: 'products',
-          where: {
-            // hasMany relationship field "category"
-            category: { contains: (activeCategory as any).id },
-          },
+          where: { category: { contains: (activeCategory as any).id } },
           depth: 1,
-          pagination: true,
-          limit,
-          page,
+          pagination: false, // get everything
           sort: 'title',
         })
 
-  // derive safe locals to silence TS optional fields
-  const pageNum = productsRes.page ?? page ?? 1
-  const totalPages = productsRes.totalPages ?? 1
-
   return {
-    // Prepend the virtual “All” tab
     categories: [ALL_VIRTUAL, ...realCategories],
     activeCategory,
     products: (productsRes.docs ?? []) as unknown as Product[],
-    pagination: {
-      page: pageNum,
-      totalPages,
-      hasPrevPage: pageNum > 1,
-      hasNextPage: pageNum < totalPages,
-      totalDocs: productsRes.totalDocs ?? 0,
-    },
   }
 }
 
@@ -128,18 +109,14 @@ async function getAllLayouts() {
 }
 
 type RouteParams = { slug: string }
-type RouteSearch = { page?: string }
 
 export default async function CatalogByCategoryPage(props: {
-  // Next 15: params/searchParams can be Promises for PPR
+  // Next 15: params can be a Promise for PPR
   params: Promise<RouteParams>
-  searchParams?: Promise<RouteSearch>
 }) {
   const { slug } = await props.params
-  const sp = (await props.searchParams) ?? {}
-  const currentPage = Math.max(1, parseInt(sp.page ?? '1', 10) || 1)
 
-  const { categories, activeCategory, products, pagination } = await getData(slug, currentPage)
+  const { categories, activeCategory, products } = await getData(slug)
   if (!activeCategory) return notFound()
 
   const isAll = slug === 'all'
@@ -165,10 +142,6 @@ export default async function CatalogByCategoryPage(props: {
     bottomLayout = catBottom
   }
 
-  const totalPages = pagination?.totalPages ?? 1
-  const hasPrev = pagination?.hasPrevPage ?? currentPage > 1
-  const hasNext = pagination?.hasNextPage ?? currentPage < totalPages
-
   return (
     <div className="mt-[100px] bg-[#FDFBE9]">
       {/* TOP BLOCKS */}
@@ -179,7 +152,7 @@ export default async function CatalogByCategoryPage(props: {
       )}
 
       {/* Categories bar (with All first) */}
-      <div className="container p-4 md:p-0 flex flex-wrap justify-center  md:justify-between items-center gap-6 mb-10">
+      <div className="container p-4 md:p-0  flex flex-wrap justify-center md:justify-between items-center mb-10 gap-2 md:gap-4">
         {categories.map((c) => {
           const isActive = c.slug === (activeCategory as any).slug
           const img = (c as any)?.image?.url ?? null
@@ -188,7 +161,7 @@ export default async function CatalogByCategoryPage(props: {
             <Link
               key={c.id}
               href={`/catalog/${c.slug}`}
-              className={`group relative rounded-[6px] overflow-hidden border text-left transition block focus:outline-none h-[110px] ${
+              className={`group relative rounded-[6px] overflow-hidden border text-left transition block focus:outline-none h-[110px] max-w-[150px] md:max-w-[auto] ${
                 isActive ? 'border-[#E1D083]' : 'border-[#E1D08380] hover:shadow'
               }`}
               aria-current={isActive ? 'page' : undefined}
@@ -212,92 +185,15 @@ export default async function CatalogByCategoryPage(props: {
                 )}
               </div>
               <div className="absolute bottom-2 left-4 z-20 p-0">
-                <h2 className={`text-base  ${isActive ? 'text-black' : 'text-white'}`}>
-                  {c.title}
-                </h2>
+                <h2 className={`text-base ${isActive ? 'text-black' : 'text-white'}`}>{c.title}</h2>
               </div>
             </Link>
           )
         })}
       </div>
 
-      {/* PRODUCTS */}
-      <div className="container flex flex-col gap-10 items-center w-full bg-[#F7EFD5] rounded-2xl my-20">
-        {products.map((p, i) => {
-          const img =
-            typeof (p as any).mainImage === 'object' && (p as any).mainImage?.url
-              ? (p as any).mainImage.url
-              : null
-          const isReverse = i % 2 === 1 // 0-based: 0=row, 1=reverse, 2=row, 3=reverse...
-
-          return (
-            <div
-              key={p.id}
-              className={`flex flex-col gap-6 lg:gap-0 lg:flex-row ${isReverse ? 'lg:flex-row-reverse' : ''} items-center justify-center w-full p-4 md:p-10`}
-            >
-              {img && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={img} alt={p.title || ''} className="object-cover w-full lg:w-[40%]" />
-                //                                              ^^^^^^ fixed w/full -> w-full
-              )}
-
-              <div
-                className={`p-4 lg:p-8 flex flex-col gap-6 bg-black text-white w-auto lg:w-[50%]
-                      rounded-2xl lg:rounded-none
-                      ${isReverse ? 'lg:rounded-l-2xl' : 'lg:rounded-r-2xl'}`}
-              >
-                <div className="flex flex-col gap-2">
-                  <h3 className=" text-2xl sm:text-3xl md:text-4xl lg:text-6xl">{p.title}</h3>
-                  {p.subtitle && <p className="text-sm">{p.subtitle}</p>}
-                </div>
-                {p.description && <p className="text-sm">{p.description}</p>}
-                {p.tag && <span className="text-xs uppercase">{p.tag}</span>}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* PAGINATION */}
-      {totalPages > 1 && (
-        <div className="container my-8 flex items-center justify-center gap-2">
-          {/* Prev */}
-          <Link
-            aria-disabled={!hasPrev}
-            className={` h-[40px] w-[40px] flex items-center justify-center border rounded-full  bg-black text-white ${hasPrev ? 'hover:bg-black hover:text-white' : 'opacity-20 pointer-events-none'}`}
-            href={`/catalog/${slug}?page=${Math.max(1, currentPage - 1)}`}
-            prefetch={false}
-          >
-            <img src="/prev.svg" alt="prev" className="w-5 h-5" />
-          </Link>
-
-          {/* Page numbers (simple) */}
-          {Array.from({ length: totalPages }).map((_, idx) => {
-            const p = idx + 1
-            const active = p === currentPage
-            return (
-              <Link
-                key={p}
-                href={`/catalog/${slug}?page=${p}`}
-                prefetch={false}
-                className={` h-[40px] w-[40px] flex items-center justify-center rounded-full  border ${active ? 'bg-[#E1D083] text-black' : 'hover:bg-black hover:text-white'}`}
-              >
-                {p}
-              </Link>
-            )
-          })}
-
-          {/* Next */}
-          <Link
-            aria-disabled={!hasNext}
-            className={` h-[40px] w-[40px] flex items-center justify-center border rounded-full  bg-black text-white ${hasNext ? 'hover:bg-black hover:text-white' : 'opacity-40 pointer-events-none'}`}
-            href={`/catalog/${slug}?page=${Math.min(totalPages, currentPage + 1)}`}
-            prefetch={false}
-          >
-            <img src="/next.svg" alt="next" className="w-5 h-5" />
-          </Link>
-        </div>
-      )}
+      {/* PRODUCTS + Load more */}
+      <RevealMore products={products} />
 
       {/* BOTTOM BLOCKS */}
       {bottomLayout.length > 0 && (

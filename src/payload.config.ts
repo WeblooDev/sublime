@@ -26,6 +26,14 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+function requireEnv(name: string): string {
+  const v = process.env[name]
+  if (!v) {
+    throw new Error(`Missing required env var: ${name}`)
+  }
+  return v
+}
+
 export default buildConfig({
   admin: {
     components: {
@@ -79,12 +87,10 @@ export default buildConfig({
     vercelBlobStorage({
       access: 'public',
       enabled: true,
-      // Specify which collections should use Vercel Blob
       collections: {
-        media: true,
+        media: true, // make sure your Media collection slug is exactly 'media'
       },
-      // Token provided by Vercel once Blob storage is added to your Vercel project
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: requireEnv('BLOB_READ_WRITE_TOKEN'),
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,

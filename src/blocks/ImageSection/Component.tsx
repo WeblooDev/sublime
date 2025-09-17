@@ -11,7 +11,7 @@ export const ImageSection: React.FC<ImageSectionBlock> = ({
 }) => {
   return (
     <section className="">
-      <div className="mt-[120px] relative ">
+      <div className=" mt-[30px] md:mt-[60px] lg:mt-[120px] relative ">
         {/* Background image */}
         <div className=" inset-0 z-0 bg-cover bg-center">
           {backgroundImage && (
@@ -31,8 +31,10 @@ export const ImageSection: React.FC<ImageSectionBlock> = ({
               height={100}
               className="!w-auto !h-auto"
             />
-            <p className="text-base md:text-lg  text-white max-w-3xl text-center">{description}</p>
-            <CustomButton label="Visit Website" href="/produits" />
+            <p className="text-sm md:text-base lg:text-lg  text-white max-w-3xl text-center">
+              {description}
+            </p>
+            <CustomButton label="Visit Website" href="https://sublimemd.com/" />
           </div>
         </div>
       </div>
