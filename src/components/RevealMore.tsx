@@ -40,7 +40,7 @@ export default function RevealMore({ products }: { products: Product[] }) {
                       ${isReverse ? 'lg:rounded-l-2xl' : 'lg:rounded-r-2xl'}`}
             >
               <div className="flex flex-col gap-2">
-                <h3 className=" text-2xl sm:text-3xl md:text-4xl lg:text-6xl">{p.title}</h3>
+                <h3 className=" text-2xl sm:text-3xl md:text-4xl lg:text-5xl">{p.title}</h3>
                 {p.subtitle && <p className="text-sm">{p.subtitle}</p>}
               </div>
               {p.description && <p className="text-sm">{p.description}</p>}
