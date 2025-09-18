@@ -53,7 +53,7 @@ export default function RevealMore({ products }: { products: Product[] }) {
       {visible < products.length && (
         <button
           onClick={() => setVisible((v) => v + 6)}
-          className=" bg-black text-white px-6 py-4 rounded-[6px] hover:bg-[#a0915b] transition-colors duration-300 cursor-pointer"
+          className="font-light bg-black text-white px-6 py-4 rounded-[6px] hover:bg-[#a0915b] transition-colors duration-300 cursor-pointer"
         >
           Load More
         </button>
