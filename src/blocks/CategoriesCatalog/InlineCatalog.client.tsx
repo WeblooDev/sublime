@@ -87,7 +87,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
             <img
               src={image}
               alt={catalog?.title || category.title || ''}
-              className="w-full h-full object-cover rounded-xl min-h-[250px]"
+              className="w-full h-full object-cover rounded-xl min-h-[524px]"
             />
           )}
           <div className="pt-4 absolute bottom-6 lg:bottom-10  left-6 lg:left-10">
