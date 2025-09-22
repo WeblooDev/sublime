@@ -405,7 +405,12 @@ export interface Catalog {
   list?:
     | {
         title: string;
-        description: string;
+        description?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1789,7 +1794,12 @@ export interface CatalogsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
+        description?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
         id?: T;
       };
   content?:

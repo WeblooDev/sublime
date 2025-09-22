@@ -13,7 +13,10 @@ type Category = {
   catalog?: {
     title?: string | null
     image?: { url?: string } | null
-    list?: { title: string; description: string }[]
+    list?: {
+      title: string
+      description: { text: string }[] // <-- bullets
+    }[]
   } | null
 }
 
@@ -87,7 +90,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
             <img
               src={image}
               alt={catalog?.title || category.title || ''}
-              className="w-full h-full object-cover rounded-xl min-h-[524px]"
+              className="w-full object-cover rounded-xl h-[600px]"
             />
           )}
           <div className="pt-4 absolute bottom-6 lg:bottom-10  left-6 lg:left-10">
@@ -97,21 +100,39 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
         <div className="w-full lg:w-[40%] flex flex-col gap-4">
           {Array.isArray(catalog?.list) && catalog!.list!.length > 0 && (
             <ul className="flex flex-col gap-8">
-              {catalog!.list!.map((item, idx) => (
-                <li key={idx} className="flex flex-col gap-2 mt-4">
-                  <h2 className="text-2xl flex items-center gap-2  ">
-                    <Image
-                      src="bullets.svg"
-                      alt="bullet"
-                      width={20}
-                      height={20}
-                      className="w-[23px] h-[23px] "
-                    />
-                    {item.title}
-                  </h2>
-                  <p className="ml-[32px] text-sm md:text-base w-[90%]">{item.description}</p>
-                </li>
-              ))}
+              {catalog!.list!.map((item, idx) => {
+                const bullets: string[] = Array.isArray(item.description)
+                  ? item.description.map((b) => (typeof b === 'string' ? b : b?.text || ''))
+                  : (item as any)?.description
+                    ? String((item as any).description)
+                        .split(/\r?\n/)
+                        .map((s) => s.trim())
+                        .filter(Boolean)
+                    : []
+
+                return (
+                  <li key={idx} className="flex flex-col gap-2 mt-4">
+                    <h2 className="text-2xl flex items-center gap-2">{item.title}</h2>
+
+                    {bullets.length > 0 && (
+                      <ul className="ml-[32px] flex flex-col gap-2">
+                        {bullets.map((line, i) => (
+                          <div className="flex items-center gap-2" key={i}>
+                            <Image
+                              src="bullets.svg"
+                              alt="bullet"
+                              width={20}
+                              height={20}
+                              className="w-[14px] h-[14px]"
+                            />
+                            <li key={i}>{line}</li>
+                          </div>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>

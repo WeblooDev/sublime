@@ -12,17 +12,23 @@ export const Catalogs: CollectionConfig = {
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: true },
+
     {
       name: 'list',
       type: 'array',
       labels: { singular: 'Item', plural: 'Items' },
       fields: [
         { name: 'title', type: 'text', required: true },
-        { name: 'description', type: 'textarea', required: true },
+        {
+          name: 'description', // now a list of bullets
+          label: 'Bullets',
+          type: 'array',
+          labels: { singular: 'Bullet', plural: 'Bullets' },
+          fields: [{ name: 'text', type: 'text', required: true }],
+        },
       ],
     },
 
-    // 👇 add two zones
     {
       name: 'content',
       label: 'Content',
@@ -32,14 +38,14 @@ export const Catalogs: CollectionConfig = {
           name: 'topLayout',
           label: 'Top Blocks',
           type: 'blocks',
-          blocks: [CatalogSectionBlock /*, ...other blocks */],
+          blocks: [CatalogSectionBlock],
           admin: { initCollapsed: true },
         },
         {
           name: 'bottomLayout',
           label: 'Bottom Blocks',
           type: 'blocks',
-          blocks: [SubscribeSectionBlock, FormBlock /*, ...other blocks */],
+          blocks: [SubscribeSectionBlock, FormBlock],
           admin: { initCollapsed: true },
         },
       ],
