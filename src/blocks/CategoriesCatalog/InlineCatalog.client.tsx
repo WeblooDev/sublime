@@ -135,6 +135,8 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
               })}
             </ul>
           )}
+
+          
         </div>
       </div>
     </div>
