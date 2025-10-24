@@ -90,7 +90,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
             <img
               src={image}
               alt={catalog?.title || category.title || ''}
-              className="w-full object-cover rounded-xl h-[600px]"
+              className="w-full object-cover rounded-xl h-[550px]"
             />
           )}
           <div className="pt-4 absolute bottom-6 lg:bottom-10  left-6 lg:left-10">
@@ -99,7 +99,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
         </div>
         <div className="w-full lg:w-[40%] flex flex-col gap-4">
           {Array.isArray(catalog?.list) && catalog!.list!.length > 0 && (
-            <ul className="flex flex-col gap-8">
+            <ul className="flex flex-col gap-2">
               {catalog!.list!.map((item, idx) => {
                 const bullets: string[] = Array.isArray(item.description)
                   ? item.description.map((b) => (typeof b === 'string' ? b : b?.text || ''))
@@ -135,8 +135,6 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
               })}
             </ul>
           )}
-
-          
         </div>
       </div>
     </div>

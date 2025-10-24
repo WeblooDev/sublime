@@ -1,9 +1,6 @@
 // payload/collections/Catalogs.ts
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
-import { SubscribeSectionBlock } from '@/blocks/SubscribeSection/config'
-import { CatalogSectionBlock } from '@/blocks/CatalogSection/config'
-import { FormBlock } from '@/blocks/Form/config'
 
 export const Catalogs: CollectionConfig = {
   slug: 'catalogs',
@@ -20,33 +17,11 @@ export const Catalogs: CollectionConfig = {
       fields: [
         { name: 'title', type: 'text', required: true },
         {
-          name: 'description', // now a list of bullets
+          name: 'description',
           label: 'Bullets',
           type: 'array',
           labels: { singular: 'Bullet', plural: 'Bullets' },
           fields: [{ name: 'text', type: 'text', required: true }],
-        },
-      ],
-    },
-
-    {
-      name: 'content',
-      label: 'Content',
-      type: 'group',
-      fields: [
-        {
-          name: 'topLayout',
-          label: 'Top Blocks',
-          type: 'blocks',
-          blocks: [CatalogSectionBlock],
-          admin: { initCollapsed: true },
-        },
-        {
-          name: 'bottomLayout',
-          label: 'Bottom Blocks',
-          type: 'blocks',
-          blocks: [SubscribeSectionBlock, FormBlock],
-          admin: { initCollapsed: true },
         },
       ],
     },

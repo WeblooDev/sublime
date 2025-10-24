@@ -216,6 +216,7 @@ export interface Page {
     | InfoMapSectionBlock
     | DisclaimerSectionBlock
     | BannerSectionBlock
+    | ProductsBrowser
   )[];
   meta?: {
     title?: string | null;
@@ -414,10 +415,6 @@ export interface Catalog {
         id?: string | null;
       }[]
     | null;
-  content?: {
-    topLayout?: CatalogSectionBlock[] | null;
-    bottomLayout?: (SubscribeSectionBlock | FormBlock)[] | null;
-  };
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -425,26 +422,170 @@ export interface Catalog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CatalogSectionBlock".
+ * via the `definition` "users".
  */
-export interface CatalogSectionBlock {
-  backgroundImage?: (string | null) | Media;
-  description: string;
-  title: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'catalogSectionBlock';
+export interface User {
+  id: string;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SubscribeSectionBlock".
+ * via the `definition` "CallToActionBlock".
  */
-export interface SubscribeSectionBlock {
-  description: string;
-  title: string;
+export interface CallToActionBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'subscribeSectionBlock';
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  columns?:
+    | {
+        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlock".
+ */
+export interface ArchiveBlock {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  populateBy?: ('collection' | 'selection') | null;
+  relationTo?: 'posts' | null;
+  categories?: (string | Category)[] | null;
+  limit?: number | null;
+  selectedDocs?:
+    | {
+        relationTo: 'posts';
+        value: string | Post;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'archive';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -649,173 +790,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
- */
-export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
-  columns?:
-    | {
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock".
- */
-export interface ArchiveBlock {
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
-  categories?: (string | Category)[] | null;
-  limit?: number | null;
-  selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: string | Post;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'archive';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageTextBlock".
  */
 export interface ImageTextBlock {
@@ -915,6 +889,17 @@ export interface TestimonialsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubscribeSectionBlock".
+ */
+export interface SubscribeSectionBlock {
+  description: string;
+  title: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subscribeSectionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CategoriesCatalogBlock".
  */
 export interface CategoriesCatalogBlock {
@@ -925,6 +910,18 @@ export interface CategoriesCatalogBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'categoriesCatalog';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CatalogSectionBlock".
+ */
+export interface CatalogSectionBlock {
+  backgroundImage?: (string | null) | Media;
+  description: string;
+  title: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'catalogSectionBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -996,6 +993,28 @@ export interface BannerSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bannerSectionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductsBrowser".
+ */
+export interface ProductsBrowser {
+  title: string;
+  /**
+   * Show a category filter dropdown above the products list
+   */
+  showCategoryFilter?: boolean | null;
+  /**
+   * Optional default category to pre-filter the list
+   */
+  defaultCategory?: (string | null) | Category;
+  /**
+   * Products per page (API + initial render)
+   */
+  pageSize?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'productsBrowser';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1327,6 +1346,7 @@ export interface PagesSelect<T extends boolean = true> {
         infoMapSectionBlock?: T | InfoMapSectionBlockSelect<T>;
         disclaimerSectionBlock?: T | DisclaimerSectionBlockSelect<T>;
         bannerSectionBlock?: T | BannerSectionBlockSelect<T>;
+        productsBrowser?: T | ProductsBrowserSelect<T>;
       };
   meta?:
     | T
@@ -1616,6 +1636,18 @@ export interface BannerSectionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductsBrowser_select".
+ */
+export interface ProductsBrowserSelect<T extends boolean = true> {
+  title?: T;
+  showCategoryFilter?: T;
+  defaultCategory?: T;
+  pageSize?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1801,21 +1833,6 @@ export interface CatalogsSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
-      };
-  content?:
-    | T
-    | {
-        topLayout?:
-          | T
-          | {
-              catalogSectionBlock?: T | CatalogSectionBlockSelect<T>;
-            };
-        bottomLayout?:
-          | T
-          | {
-              subscribeSectionBlock?: T | SubscribeSectionBlockSelect<T>;
-              formBlock?: T | FormBlockSelect<T>;
-            };
       };
   slug?: T;
   slugLock?: T;
