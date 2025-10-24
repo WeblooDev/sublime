@@ -1,9 +1,6 @@
 // payload/collections/Catalogs.ts
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
-import { SubscribeSectionBlock } from '@/blocks/SubscribeSection/config'
-import { CatalogSectionBlock } from '@/blocks/CatalogSection/config'
-import { FormBlock } from '@/blocks/Form/config'
 
 export const Catalogs: CollectionConfig = {
   slug: 'catalogs',
@@ -12,35 +9,19 @@ export const Catalogs: CollectionConfig = {
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: true },
+
     {
       name: 'list',
       type: 'array',
       labels: { singular: 'Item', plural: 'Items' },
       fields: [
         { name: 'title', type: 'text', required: true },
-        { name: 'description', type: 'textarea', required: true },
-      ],
-    },
-
-    // 👇 add two zones
-    {
-      name: 'content',
-      label: 'Content',
-      type: 'group',
-      fields: [
         {
-          name: 'topLayout',
-          label: 'Top Blocks',
-          type: 'blocks',
-          blocks: [CatalogSectionBlock /*, ...other blocks */],
-          admin: { initCollapsed: true },
-        },
-        {
-          name: 'bottomLayout',
-          label: 'Bottom Blocks',
-          type: 'blocks',
-          blocks: [SubscribeSectionBlock, FormBlock /*, ...other blocks */],
-          admin: { initCollapsed: true },
+          name: 'description',
+          label: 'Bullets',
+          type: 'array',
+          labels: { singular: 'Bullet', plural: 'Bullets' },
+          fields: [{ name: 'text', type: 'text', required: true }],
         },
       ],
     },

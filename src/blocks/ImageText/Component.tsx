@@ -1,6 +1,6 @@
 import React from 'react'
-import Image from 'next/image'
-import type { ImageTextBlock } from '@/payload-types'
+import type { ImageTextBlock, Media as MediaType } from '@/payload-types'
+import { Media } from '@/components/Media'
 
 export const ImageText: React.FC<ImageTextBlock> = ({
   backgroundImage,
@@ -8,21 +8,18 @@ export const ImageText: React.FC<ImageTextBlock> = ({
   description,
   reverse,
 }) => {
+  const bg = backgroundImage as MediaType | null
+
   return (
     <section className="container mx-auto my-12 md:my-20 lg:my-32">
       <div
-        className={` flex items-center h-full gap-8 lg:gap-16 ${reverse ? ' flex-col lg:flex-row-reverse' : ' flex-col lg:flex-row'}`}
+        className={[
+          'flex items-center h-full gap-8 lg:gap-16',
+          reverse ? 'flex-col lg:flex-row-reverse' : 'flex-col lg:flex-row',
+        ].join(' ')}
       >
-        <div className="relative w-full lg:w-[50%] h-[420px] rounded-4xl">
-          {backgroundImage && typeof backgroundImage !== 'string' && (
-            <Image
-              src={backgroundImage.url || ''}
-              alt={backgroundImage.alt || title || ''}
-              fill
-              priority
-              className="object-cover !rounded-4xl"
-            />
-          )}
+        <div className="relative w-full lg:w-[50%] h-[420px] rounded-4xl overflow-hidden">
+          {bg && <Media resource={bg} fill imgClassName="object-cover !rounded-4xl" priority />}
         </div>
 
         <div className="w-full lg:w-[50%] flex flex-col gap-4 lg:gap-8">
@@ -32,7 +29,7 @@ export const ImageText: React.FC<ImageTextBlock> = ({
             {Array.isArray(description) ? (
               description.map((desc, i) => (
                 <p key={i} className="text-sm md:text-base lg:text-lg ">
-                  {desc.paragraph}
+                  {desc?.paragraph}
                 </p>
               ))
             ) : (

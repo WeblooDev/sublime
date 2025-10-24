@@ -13,10 +13,10 @@ export const Products: CollectionConfig = {
     { name: 'mainImage', type: 'upload', relationTo: 'media', required: true },
     { name: 'bestSeller', type: 'checkbox', defaultValue: false },
     {
-      name: 'category', // ok to keep this name
+      name: 'category',
       type: 'relationship',
       relationTo: 'categories',
-      hasMany: true, // 👈 makes it multi-category
+      hasMany: true,
       required: true,
     },
     ...slugField(),

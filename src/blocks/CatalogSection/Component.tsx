@@ -10,14 +10,12 @@ export const CatalogSection: React.FC<CatalogSectionBlock> = ({
   description,
 }) => {
   return (
-    <div>
-      {/* Background image */}
+    <div className="pt-32">
       <div className="">
         <Media
           resource={backgroundImage}
           imgClassName="w-full h-full min-h-[200px] object-cover max-h-[500px] "
         />
-        
 
         <div className="container mx-auto flex flex-col md:flex-row justify-between gap-4 items-start py-10">
           <h1 className="text-2xl md:text-4xl w-full md:w-[40%] ">{title}</h1>

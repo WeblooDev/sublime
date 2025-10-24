@@ -80,7 +80,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           </Link>
 
           <div className={`flex gap-3 md:gap-8 ${textColor}`}>
-            <Link className="text-sm md:text-base hover:underline" href="/catalog/all">
+            <Link className="text-sm md:text-base hover:underline" href="/catalog">
               Product Catalog
             </Link>
             <Link className="text-sm md:text-base hover:underline" href="/contact">

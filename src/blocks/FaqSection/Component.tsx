@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Media } from '@/components/Media'
 import type { FaqSectionBlock } from '@/payload-types'
-import { CustomButton } from '@/components/CustomButton'
 
 export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -12,7 +11,6 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) =>
   return (
     <section className="py-4 md:py-16 px-4 max-w-7xl mx-auto">
       <div className="flex flex-col-reverse md:flex-row gap-12 ">
-        {/* Left side - Image (from Payload media) */}
         <div className="relative hidden md:block h-auto w-full md:w-[50%]">
           <Media
             resource={image}
@@ -56,7 +54,6 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) =>
               </div>
             ))}
 
-            {/* Optional: empty state */}
             {!faqs?.length && (
               <p className="text-sm text-muted-foreground">No FAQs yet. Add items in the CMS.</p>
             )}
@@ -64,9 +61,6 @@ export const FaqSection: React.FC<FaqSectionBlock> = ({ title, image, faqs }) =>
         </div>
       </div>
 
-      {/* <div className="flex justify-center mt-20">
-        <CustomButton label="View All" href="/contact" />
-      </div> */}
     </section>
   )
 }

@@ -19,6 +19,7 @@ import { BestSellerProducts } from './BestSellerProducts/Component'
 import { InfoMapSection } from './InfoMapSection/Component'
 import { DisclaimerSection } from './DisclaimerSection/Component'
 import { BannerSection } from './BannerSection/Component'
+import ProductsBrowser from './ProductsBrowser/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -39,6 +40,7 @@ const blockComponents = {
   infoMapSectionBlock: InfoMapSection,
   disclaimerSectionBlock: DisclaimerSection,
   bannerSectionBlock: BannerSection,
+   productsBrowser: ProductsBrowser,
 }
 
 export const RenderBlocks: React.FC<{
