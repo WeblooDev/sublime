@@ -9,9 +9,9 @@ export const Categories: CollectionConfig = {
     { name: 'title', type: 'text', required: true },
     { name: 'image', type: 'upload', relationTo: 'media', required: true },
     {
-      name: 'catalog',              // NOTE: field name "catalog" is fine
+      name: 'catalog',
       type: 'relationship',
-      relationTo: 'catalogs',       // MUST match the slug above
+      relationTo: 'catalogs',
       required: true,
       hasMany: false,
     },

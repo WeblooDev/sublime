@@ -17,10 +17,5 @@ export default async function CatalogIndexPage() {
 
   // If you want the “All” view by default:
   if (!cats?.docs) return notFound()
-  redirect('/catalog/all')
 
-  // OR, if you prefer the first category instead:
-  // const first = cats.docs[0]
-  // if (!first?.slug) return notFound()
-  // redirect(`/catalog/${first.slug}`)
 }

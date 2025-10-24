@@ -12,9 +12,11 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { BodyBg } from '@/components/BodyBg'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -28,6 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <BodyBg />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,

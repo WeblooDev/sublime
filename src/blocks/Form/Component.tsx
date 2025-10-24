@@ -182,8 +182,8 @@ export const FormBlock: React.FC<
           <div className="flex flex-col gap-8 mt-4">
             <div className="flex items-center gap-5">
               <Image src="/phone.svg" alt="phone" width={24} height={24} />
-              <Link href="tel:+19495664084" className="font-light hover:underline">
-                +949 566 4084
+              <Link href="tel:+16578063298" className="font-light hover:underline">
+                (657) 806 3298
               </Link>
             </div>
             <div className="flex items-center gap-5">

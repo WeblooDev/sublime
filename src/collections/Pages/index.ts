@@ -33,6 +33,7 @@ import { BestSellerProductsBlock } from '@/blocks/BestSellerProducts/config'
 import { InfoMapSectionBlock } from '@/blocks/InfoMapSection/config'
 import { DisclaimerSectionBlock } from '@/blocks/DisclaimerSection/config'
 import { BannerSectionBlock } from '@/blocks/BannerSection/config'
+import { ProductsBrowserBlock } from '@/blocks/ProductsBrowser/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -107,6 +108,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 InfoMapSectionBlock,
                 DisclaimerSectionBlock,
                 BannerSectionBlock,
+                ProductsBrowserBlock
               ],
               required: true,
               admin: {
