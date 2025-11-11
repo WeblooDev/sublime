@@ -140,7 +140,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
   return (
     <div className="mt-12">
       <div className="flex flex-col lg:flex-row gap-12 justify-between">
-        <div className="w-full lg:w-[50%] relative">
+3        <div className="w-full lg:w-[50%] relative">
           <LargeImage media={catalog?.image} alt={catalog?.title || category.title || ''} />
           <div className="pt-4 absolute bottom-6 lg:bottom-10 left-6 lg:left-10">
             <Link
@@ -183,6 +183,7 @@ function ActiveCatalogPanel({ category }: { category: Category }) {
             </ul>
           )}
         </div>
+
       </div>
     </div>
   )

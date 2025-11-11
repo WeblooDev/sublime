@@ -45,13 +45,6 @@ export default function ProductsBrowserClient({
   const [loading, setLoading] = useState(false)
 
   const didMount = useRef(false)
-  const catStripRef = useRef<HTMLDivElement | null>(null)
-
-  const scrollCats = (dir: number) =>
-    catStripRef.current?.scrollBy({
-      left: dir * (catStripRef.current.clientWidth || 0), // one "page"
-      behavior: 'smooth',
-    })
 
   const fetchPage = async (nextPage: number, nextCategoryId: string | null, replace = false) => {
     setLoading(true)
@@ -99,126 +92,70 @@ export default function ProductsBrowserClient({
 
   return (
     <div className="space-y-8">
-      {/* Category strip */}
       {showCategoryFilter && (
         <div className="space-y-3">
-          <div className="relative">
-            {/* Always-visible arrows */}
-            <button
-              type="button"
-              aria-label="Scroll categories left"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                scrollCats(-1)
-              }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-50
-                         bg-black/70 text-white rounded-full w-8 h-8 grid place-items-center
-                         pointer-events-auto"
-            >
-              ‹
-            </button>
+          <div
+            className="
+              grid gap-4
+              grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7
+            "
+          >
+            {loading && items.length === 0
+              ? Array.from({ length: 10 }).map((_, i) => (
+                  <div key={i} className="rounded-xl overflow-hidden">
+                    <Skeleton height={112} />
+                  </div>
+                ))
+              : catList.map((c) => {
+                  const isActive =
+                    (categoryId === null && c.id === '__ALL__') ||
+                    (categoryId !== null && c.id === categoryId)
 
-            <button
-              type="button"
-              aria-label="Scroll categories right"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                scrollCats(1)
-              }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-50
-                         bg-black/70 text-white rounded-full w-8 h-8 grid place-items-center
-                         pointer-events-auto"
-            >
-              ›
-            </button>
-
-            {/* FLEX-BASED CAROUSEL: 5 per view on xl, then 4/3/2/1 as screen shrinks */}
-            <div
-              ref={catStripRef}
-              className="
-                overflow-x-auto no-scrollbar pb-1 -mx-1 px-4
-                flex gap-4 snap-x snap-mandatory
-              "
-            >
-              {loading && items.length === 0
-                ? Array.from({ length: 10 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="
-                        shrink-0
-                        basis-full
-                        sm:basis-1/2
-                        md:basis-1/3
-                        lg:basis-1/4
-                        xl:basis-1/5
-                      "
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => setCategoryId(c.id === '__ALL__' ? null : c.id)}
+                      className={clsx('group rounded-xl transition outline-none ')}
+                      aria-pressed={isActive}
                     >
-                      <div className="rounded-xl overflow-hidden">
-                        <Skeleton height={112} />
-                      </div>
-                    </div>
-                  ))
-                : catList.map((c) => {
-                    const isActive =
-                      (categoryId === null && c.id === '__ALL__') ||
-                      (categoryId !== null && c.id === categoryId)
-
-                    return (
-                      <button
-                        key={c.id}
-                        onClick={() => setCategoryId(c.id === '__ALL__' ? null : c.id)}
-                        className={clsx(
-                          // 👇 5 per slide on xl, then 4/3/2/1
-                          'group shrink-0 snap-start rounded-xl transition outline-none focus-visible:ring-2 focus-visible:ring-black/50',
-                          'basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5',
-                        )}
-                        aria-pressed={isActive}
-                      >
-                        <div className="relative aspect-[183/108] rounded-xl overflow-hidden w-full">
-                          {/* Image (z-0) */}
-                          <div className="absolute inset-0 z-0">
-                            {c.id === '__ALL__' ? (
-                              <img
-                                src="/any.webp"
-                                alt="All"
-                                className="h-full w-full object-cover"
-                              />
-                            ) : c.image ? (
-                              <Media resource={c.image} fill imgClassName="object-cover" />
-                            ) : (
-                              <div className="h-full w-full grid place-items-center text-xs text-neutral-500 bg-neutral-100">
-                                {c.title}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Active overlay (z-10) */}
-                          <div
-                            className={clsx(
-                              'absolute inset-0 z-10 bg-[#F5EC9B] transition-opacity duration-200',
-                              isActive ? 'opacity-100' : 'opacity-0',
-                            )}
-                            aria-hidden="true"
-                          />
-
-                          {/* Title (z-20) */}
-                          <div className="absolute inset-x-0 bottom-0 z-20 p-2">
-                            <h2
-                              className={clsx(
-                                'text-base text-center truncate',
-                                isActive ? 'text-black' : 'text-white',
-                              )}
-                            >
+                      <div className="relative aspect-[152/90] rounded-xl overflow-hidden w-full">
+                        {/* Image */}
+                        <div className="absolute inset-0 z-0">
+                          {c.id === '__ALL__' ? (
+                            <img src="/any.webp" alt="All" className="h-full w-full object-cover" />
+                          ) : c.image ? (
+                            <Media resource={c.image} fill imgClassName="object-cover" />
+                          ) : (
+                            <div className="h-full w-full grid place-items-center text-xs text-neutral-500 bg-neutral-100">
                               {c.title}
-                            </h2>
-                          </div>
+                            </div>
+                          )}
                         </div>
-                      </button>
-                    )
-                  })}
-            </div>
+
+                        {/* Active overlay */}
+                        <div
+                          className={clsx(
+                            'absolute inset-0 z-10 bg-[#F5EC9B] transition-opacity duration-200',
+                            isActive ? 'opacity-100' : 'opacity-0',
+                          )}
+                          aria-hidden="true"
+                        />
+
+                        {/* Title */}
+                        <div className="absolute inset-x-0 bottom-0 z-20 p-2">
+                          <h2
+                            className={clsx(
+                              'text-base text-center truncate',
+                              isActive ? 'text-black' : 'text-white',
+                            )}
+                          >
+                            {c.title}
+                          </h2>
+                        </div>
+                      </div>
+                    </button>
+                  )
+                })}
           </div>
         </div>
       )}
@@ -251,7 +188,6 @@ export default function ProductsBrowserClient({
                 <div className="p-4 lg:p-8 flex flex-col gap-6 bg-black text-white w-full lg:w-[60%]">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">{card.title}</h3>
                   {card.subtitle && <div className="text-sm">{card.subtitle}</div>}
-
                   {card.description && (
                     <p className="text-sm leading-relaxed">{card.description}</p>
                   )}

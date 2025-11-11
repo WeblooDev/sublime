@@ -6,7 +6,6 @@ import { redirect, notFound } from 'next/navigation'
 export default async function CatalogIndexPage() {
   const payload = await getPayload({ config })
 
-  // Get categories; choose a default “landing” destination
   const cats = await payload.find({
     collection: 'categories',
     depth: 0,
@@ -15,7 +14,6 @@ export default async function CatalogIndexPage() {
     sort: 'title',
   })
 
-  // If you want the “All” view by default:
   if (!cats?.docs) return notFound()
 
 }
