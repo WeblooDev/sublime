@@ -12,7 +12,7 @@ export const DisclaimerSection: React.FC<Props> = (props) => {
     <section className="container my-20 mt-[160px] flex flex-col items-center justify-between gap-10">
       <img src="/Disclaimer.svg" alt="Disclaimer" />
 
-      <h2 className="text-3xl md:text-5xl text-center">{title} </h2>
+      <h1 className="text-3xl md:text-5xl text-center">{title} </h1>
       <div className="flex flex-col gap-4 text-robot-bold">
         <p className="text-base md:text-lg text-center ">{subtitle}</p>
         <p className="text-base md:text-lg text-center">{description}</p>
