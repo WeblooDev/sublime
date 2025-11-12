@@ -979,6 +979,8 @@ export interface DisclaimerSectionBlock {
   title?: string | null;
   subtitle?: string | null;
   description?: string | null;
+  subtitle1?: string | null;
+  subtitle2?: string | null;
   smallText?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -990,6 +992,7 @@ export interface DisclaimerSectionBlock {
  */
 export interface BannerSectionBlock {
   backgroundImage?: (string | null) | Media;
+  title?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'bannerSectionBlock';
@@ -1621,6 +1624,8 @@ export interface DisclaimerSectionBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   description?: T;
+  subtitle1?: T;
+  subtitle2?: T;
   smallText?: T;
   id?: T;
   blockName?: T;
@@ -1631,6 +1636,7 @@ export interface DisclaimerSectionBlockSelect<T extends boolean = true> {
  */
 export interface BannerSectionBlockSelect<T extends boolean = true> {
   backgroundImage?: T;
+  title?: T;
   id?: T;
   blockName?: T;
 }

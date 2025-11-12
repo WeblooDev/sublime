@@ -15,5 +15,10 @@ export const BannerSectionBlock: Block = {
       type: 'upload',
       relationTo: 'media',
     },
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+    },
   ],
 }

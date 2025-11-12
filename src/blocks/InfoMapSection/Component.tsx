@@ -13,7 +13,7 @@ export const InfoMapSection: React.FC<Props> = (props) => {
       {/* Headings */}
       <div className="mb-8">
         {title && <h1 className="text-3xl md:text-5xl ">{title}</h1>}
-        {subtitle && <h3 className="text-lg md:text-[20px] mt-6">{subtitle}</h3>}
+        {subtitle && <h2 className="text-lg md:text-[20px] mt-6">{subtitle}</h2>}
         {description && (
           <p className="mt-4 text-sm md:text-lg w-full lg:w-[60%] text-start font-roboto-bold">
             {description}

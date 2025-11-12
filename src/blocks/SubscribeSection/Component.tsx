@@ -5,7 +5,7 @@ export const SubscribeSection: React.FC<SubscribeSectionBlock> = ({ title, descr
   return (
     <section className="bg-[#F5EC9B] text-black py-20 px-6 flex flex-col gap-8 items-center">
       <div className="container flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl md:text-4xl text-center">{title}</h1>
+        <h3 className="text-2xl md:text-4xl text-center">{title}</h3>
         <p className="text-sm md:text-base font-light text-center">{description}</p>
 
         <div className="flex flex-col md:flex-row items-center gap-4">

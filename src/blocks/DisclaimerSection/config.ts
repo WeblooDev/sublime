@@ -15,6 +15,18 @@ export const DisclaimerSectionBlock: Block = {
       admin: { placeholder: 'A short description for this section' },
     },
     {
+      name: 'subtitle1',
+      type: 'text',
+      required: false,
+      admin: { placeholder: 'Subtitle' },
+    },
+    {
+      name: 'subtitle2',
+      type: 'text',
+      required: false,
+      admin: { placeholder: 'Subtitle' },
+    },
+    {
       name: 'smallText',
       label: 'Small Text',
       type: 'text',

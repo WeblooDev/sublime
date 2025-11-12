@@ -4,17 +4,18 @@ import React from 'react'
 type Props = any // fallback until payload-types are regenerated
 
 export const DisclaimerSection: React.FC<Props> = (props) => {
-  const { title, subtitle, description, smallText } = props || {}
+  const { title, subtitle1, subtitle2, description, smallText } = props || {}
 
-  if (!title && !subtitle && !description) return null
+  if (!title && !subtitle1 && !subtitle2 && !description) return null
 
   return (
     <section className="container my-20 mt-[160px] flex flex-col items-center justify-between gap-10">
       <img src="/Disclaimer.svg" alt="Disclaimer" />
 
       <h1 className="text-3xl md:text-5xl text-center">{title} </h1>
+      <h2 className="text-lg ">{subtitle1}</h2>
       <div className="flex flex-col gap-4 text-robot-bold">
-        <p className="text-base md:text-lg text-center ">{subtitle}</p>
+        <p className="text-base md:text-lg text-center ">{subtitle2}</p>
         <p className="text-base md:text-lg text-center">{description}</p>
         <p className="text-base md:text-lg text-center">{smallText}</p>
       </div>

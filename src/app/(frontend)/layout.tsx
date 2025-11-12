@@ -27,6 +27,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <meta
+          name="google-site-verification"
+          content="4Ju0bSgu6jElKX1EwU9KNUhTAeJf98XxhQP2uzsZvPE"
+        />
       </head>
       <body>
         <Providers>

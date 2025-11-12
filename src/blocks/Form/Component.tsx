@@ -124,7 +124,7 @@ export const FormBlock: React.FC<
       )}
       <div id="forms" className="flex flex-col gap-10 w-full md:w-[50%]">
         <div className="flex flex-col gap-4">
-          <h1 className="text-4xl md:text-4xl">Questions? Ready to order?</h1>
+          <h3 className="text-2xl md:text-4xl">Questions? Ready to order?</h3>
           <p className="text-base">
             Submit your information below and a personal rep will establish your account or answer
             any questions you may have
