@@ -36,7 +36,7 @@ export async function Footer() {
             </Link>
             <Link
               className="text-[14px] text-[#A3A3A3] hover:text-white hover:underline"
-              href="/catalog/all"
+              href="/catalog"
             >
               Product Catalog
             </Link>

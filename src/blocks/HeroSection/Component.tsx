@@ -32,7 +32,7 @@ export const HeroSection: React.FC<HeroSectionBlock> = ({
             <p className="text-base md:text-lg lg:text-xl font-light text-white w-full lg:w-[60%] text-start">
               {description}
             </p>
-            <CustomButton label="Explore Peptides" href="/catalog/all" />
+            <CustomButton label="Explore Peptides" href="/catalog" />
           </div>
         </div>
       </div>
