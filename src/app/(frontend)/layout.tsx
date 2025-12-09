@@ -58,3 +58,4 @@ export const metadata: Metadata = {
     creator: '@payloadcms',
   },
 }
+
